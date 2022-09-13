@@ -1,18 +1,20 @@
 // letters, upper and lower case
-let lowerCaseCharacters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+const lowerCaseCharacters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
-let upperCaseCharacters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-
+const upperCaseCharacters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
 // symbols
-let specialCharacters = ["!", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "\:", "\;", " < ", "=", " > ", " ? ", "@", "[", "\\", "]", " ^ ", "_", "`", "{", "|", "}", "~"];
+const specialCharacters = ["!", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "\:", "\;", " < ", "=", " > ", " ? ", "@", "[", "\\", "]", " ^ ", "_", "`", "{", "|", "}", "~"];
 
 // numbers
-let numberCharacters = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const numberCharacters = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
+const generateBtn = document.querySelector("#generate");
 
+const passwordText = document.querySelector("#password");
 
-
+// add an event listener when generate button is clicked
+generateBtn.addEventListener("click", makePassword);
 
 
 // function to grab how many characters in the password
@@ -40,7 +42,7 @@ function passwordChoices() {
     }
 
     // confirm with user if they want certain characters
-    let inclLowerCaseCharacters = confirm("Click OK if you would like to user lowercase characters.");
+    let inclLowerCaseCharacters = confirm("Click OK if you would like to use lowercase characters.");
 
     let inclUpperCaseCharacters = confirm("Click OK if you would like to use uppercase characters");
 
@@ -60,7 +62,7 @@ function passwordChoices() {
 
 
     let passOptions = {
-        length: length,
+        length: passLength,
         inclLowerCaseCharacters: inclLowerCaseCharacters,
         inclUpperCaseCharacters: inclUpperCaseCharacters,
         inclSpecialCharacters: inclSpecialCharacters,
@@ -72,10 +74,10 @@ function passwordChoices() {
 }
 
 // create a function to generate random password options with a parameter of an array
-function getRandom(arr) {
-    let randomIndex = Math.floor(Math.random()* arr.length);
-    let randomElement = arr[randomIndex];
-    return randomElement;
+function getRandom(array) {
+    let rdmIndex = Math.floor(Math.random()* array.length);
+    let rdmEl = array[rdmIndex];
+    return rdmEl;
 }
 
 // function to create a new password
@@ -86,7 +88,7 @@ function createPass() {
     let possibleChoices = [];
     let guaranteedChoices = [];
 
-    if(!choices) return null;
+    if(!choices) return;
 
     if(choices.inclLowerCaseCharacters) {
         possibleChoices = possibleChoices.concat(lowerCaseCharacters)
@@ -111,8 +113,8 @@ function createPass() {
 
     // now we loop through the possible choices
     for(let index = 0; index < choices.length; index++) {
-        let possibleChoices = getRandom(possibleChoices);
-        results.push(possibleChoices);    
+        let possibleChoice = getRandom(possibleChoices);
+        results.push(possibleChoice);    
     }
 
     // create a loop to loop through guaranteed choices
@@ -127,14 +129,12 @@ function createPass() {
 
 function makePassword() {
     let passsword = createPass();
-    let passwordText = document.querySelector("#password");
     passwordText.value = passsword;
 }
 
-let generateBtn = document.querySelector("#generate");
 
-// add an event listener when generate button is clicked
-generateBtn.addEventListener("click", makePassword);
+
+
 
 
 
